@@ -1,57 +1,20 @@
 # fastboot-test-app
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+### The Issue
+`ember-cli-fastboot` build it's manifest and dependencies one addon level deep in the dependency tree
 
-## Prerequisites
+`ember-data` at master has introduced `ember-fetch` as a dependency which to a host app `ember-fetch` is now two levels deep in the dependency tree.
 
-You will need the following things properly installed on your computer.
+### MY PR for ember-cli-fastboot
+[Recursive Addons PR](https://github.com/kiwiupover/ember-cli-fastboot/pull/2/files)
+This PR builds dependency graph and the manifest correctly. 
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with npm)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+The last piece I need help with is adding any nested dependencies to the dist folder.
 
-## Installation
+When adding `ember-fetch` as an immediate dependency of the host app, it adds a folder `ember-fetch/...` to the `dist` folder. However, when `ember-fetch` is removed from the host app and is included with `ember-data` build doesn't move the `ember-fetch/..` folder into the `dist` folder.
 
-* `git clone <repository-url>` this repository
-* `cd fastboot-test-app`
-* `npm install`
+I can't find where the build is moving the dependent folders into the dist folder at build time.
 
-## Running / Development
+`ember-cli-moment-shim` also moves a moment folder into the `dist` folder.  I'm sure if it was nested in another addon we would have the same issue.
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+@rwjblue and you help me?
