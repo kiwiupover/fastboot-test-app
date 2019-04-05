@@ -373,7 +373,7 @@ catch(err) {
 ;
 if (typeof FastBoot === 'undefined') {
   if (!runningTests) {
-    require('fastboot-test-app/app')['default'].create({"name":"fastboot-test-app","version":"0.0.0+9d937520"});
+    require('fastboot-test-app/app')['default'].create({"name":"fastboot-test-app","version":"0.0.0+9b9f9d51"});
   }
 }
 
